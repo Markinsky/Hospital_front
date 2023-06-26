@@ -1,0 +1,18 @@
+<h1 class="bg-slate-400">Mira la lista de nuestros doctores especialistas</h1>
+
+<table class="table-auto">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre Completo</th>
+      <th>Especialidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let doctor of doctores">
+      <td>{{ doctor.id }}</td>
+      <td>{{ doctor.nombre }} {{ doctor.ap_pat }} {{ doctor.ap_mat }}</td>
+      <td>{{ doctor.especialidad }}</td>
+    </tr>
+  </tbody>
+</table>
