@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Citas } from './citas';
+import { CitasServiceService } from './citas-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'hospitalFront';
+  listacitas: Citas[] = [];
+
+  constructor(private citasservice:CitasServiceService){ }
+
+  ngOnInit(){
+    this.getCita();
+  }
+
+  public getCita(){
+    this.citasservice.getCitas().subscribe(
+      (response: Citas[]) => {
+        this.listacitas = response;
+      },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+    );
+  }
 }
