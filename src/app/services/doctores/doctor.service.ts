@@ -15,4 +15,8 @@ export class DoctorService {
   public getDoctores():Observable<Doctor[]>{
     return this.http.get<Doctor[]>(`${this.apiServerUrl}/doctor/`);
   }
+
+  public postDoctores(){
+    
+  }
 }
