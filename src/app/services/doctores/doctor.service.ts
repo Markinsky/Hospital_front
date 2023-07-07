@@ -16,7 +16,11 @@ export class DoctorService {
     return this.http.get<Doctor[]>(`${this.apiServerUrl}/doctor/`);
   }
 
-  public postDoctores(){
-    
+  public postDoctores(doctor: Doctor): Observable<Doctor>{
+    return this.http.post<Doctor>(`${this.apiServerUrl}/doctor/`, doctor);
+  }
+
+  public updateDoctores(doctor: Doctor): Observable<Doctor>{
+    return this.http.put<Doctor>(`${this.apiServerUrl}/employee/update`, doctor);
   }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Citas } from './shared/interfaces/citas';
 import { CitasServiceService } from './services/citas/citas-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,7 @@ export class AppComponent {
 
   ngOnInit(){
     this.getCita();
+    initFlowbite();
   }
 
   public getCita(){
