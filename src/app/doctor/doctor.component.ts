@@ -52,20 +52,23 @@ export class DoctorComponent {
 
   public openModal(doctor:Doctor | null, mode:String):void{
     const modalOptions: ModalOptions = {
-      placement: 'bottom-right',
-      backdrop: 'static',
-      backdropClasses: 'bg-black fixed inset-0 z-40',
-      closable: true,
-      onToggle: () => {
-        modal.toggle();
-    }
+      placement: 'top-right'
   }
   let $modalElement: HTMLElement | null = null;
     if(mode === 'add'){
-      $modalElement = document.querySelector('#modalEl') as HTMLElement;
+      $modalElement = document.querySelector('#addModal') as HTMLElement;
     }
     const modal: ModalInterface = new Modal($modalElement, modalOptions);
+    
     modal.show();
   }
 
+  public closeModal(modal:String):void{
+    const myModal = document.getElementById(`${modal}`) as HTMLElement;
+       myModal.classList.add('hidden');
+       const modalBackdrop = document.querySelector('div[modal-backdrop]');
+       if (modalBackdrop) {
+        modalBackdrop.remove();
+      }
+  }
 }
