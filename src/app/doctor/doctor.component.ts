@@ -13,7 +13,7 @@ import type { ModalOptions, ModalInterface } from 'flowbite'
 })
 export class DoctorComponent {
   doctores = [] as Array<Doctor>
-  edDoctor = {} as Doctor;
+  edDoctor: Doctor | null = null;
 
   constructor(private doctorService: DoctorService){}
   ngOnInit(){
@@ -41,6 +41,7 @@ export class DoctorComponent {
   }
 
   public updateDoctores(doctor:Doctor){
+    console.log("Entra el botón");
     this.doctorService.updateDoctores(doctor).subscribe(
       (response:Doctor) =>{
         console.log(response);
@@ -52,11 +53,15 @@ export class DoctorComponent {
 
   public openModal(doctor:Doctor | null, mode:String):void{
     const modalOptions: ModalOptions = {
-      placement: 'top-right'
+      placement: 'center'
   }
   let $modalElement: HTMLElement | null = null;
     if(mode === 'add'){
       $modalElement = document.querySelector('#addModal') as HTMLElement;
+    }
+    if(mode === 'update'){
+      this.edDoctor = doctor;
+      $modalElement = document.querySelector('#putModal') as HTMLElement;
     }
     const modal: ModalInterface = new Modal($modalElement, modalOptions);
     

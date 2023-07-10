@@ -23,7 +23,10 @@
           >
             Click to delete
           </button>
-          <button class="text-gray-100 bg-yellow-300 rounded shadow p-2 m-2">
+          <button
+            (click)="openModal(doctor, 'update')"
+            class="text-gray-100 bg-yellow-300 rounded shadow p-2 m-2"
+          >
             Click to edit
           </button>
         </td>
@@ -38,14 +41,6 @@
   id="buttonAddModal"
 >
   Nuevo doctor
-</button>
-<button
-  data-modal-target="addModal"
-  data-modal-toggle="addModal"
-  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-  type="button"
->
-  Toggle modal
 </button>
 
 <!-- Add modal -->
@@ -68,7 +63,7 @@
         <button
           type="button"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-hide="addModal"
+          (click)="closeModal('addModal')"
         >
           <svg
             class="w-3 h-3"
@@ -88,7 +83,7 @@
           <span class="sr-only">Close modal</span>
         </button>
       </div>
-      <!-- Modal body -->
+      <!-- Modal add -->
       <div class="p-6 space-y-6">
         <form
           #addDoctorForm="ngForm"
@@ -147,6 +142,112 @@
         </button>
         <button
           (click)="closeModal('addModal')"
+          type="button"
+          class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update modal -->
+<div
+  id="putModal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div
+        class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600"
+      >
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Editar doctor
+        </h3>
+        <button
+          type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          (click)="closeModal('putModal')"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal add -->
+      <div class="p-6 space-y-6">
+        <form #editDoctorForm="ngForm" class="px-8 p-3">
+          <input type="hidden" ngModel="{{ edDoctor?.id }}" name="id" />
+          <label> Nombre: </label>
+          <input
+            type="text"
+            id="inputNombre"
+            name="nombre"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            ngModel="{{ edDoctor?.nombre }}"
+            equired
+          />
+          <label>Apellido paterno: </label>
+          <input
+            type="text"
+            id="inputApPat"
+            name="ap_pat"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            ngModel="{{ edDoctor?.ap_pat }}"
+            required
+          />
+          <label>Apellido materno: </label>
+          <input
+            type="text"
+            id="inputApMat"
+            name="ap_mat"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            ngModel="{{ edDoctor?.ap_mat }}"
+            required
+          />
+          <label>Especialidad: </label>
+          <input
+            type="text"
+            id="inputEspecialidad"
+            name="especialidad"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            ngModel="{{ edDoctor?.especialidad }}"
+            required
+          />
+        </form>
+      </div>
+      <!-- Modal footer -->
+      <div
+        class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
+      >
+        <button
+          [disabled]="editDoctorForm.invalid"
+          (click)="updateDoctores(editDoctorForm.value)"
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Agregar
+        </button>
+        <button
+          (click)="closeModal('putModal')"
           type="button"
           class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
         >
